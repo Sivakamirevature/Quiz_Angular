@@ -1,0 +1,28 @@
+<div>
+<div *ngFor = "let obj of object">
+ <h2 align="center" color="blue">{{obj.quiz_name | titlecase}}</h2>
+ <label>Level</label> {{obj.level.levelName}}<br>
+ <label>Slug:</label> {{obj.slug}}<br>
+ <label>Duration:</label> {{obj.duration}}<br>
+ <div id=div1 ><label>Available For:</label> <div *ngIf= "obj.is_available_pre_signup" >Signup(available Via slug)</div>
+ <div *ngIf= "obj.is_available_dashboard" >Dashboard (available Via slug)</div></div>
+ <label>Activity Points</label>{{obj.activity_points}}<br>
+ <label>Tags</label>{{obj.tags}}<br>
+ <label>Meta Keywords       :</label>{{obj.meta_keywords}}<br>
+ <label>Category             :</label>{{obj.category.categoryName}}<br>
+ <label>Level Override       : </label><div *ngIf="obj.is_leveloverride; else elseblack">on</div> <br>
+ <ng-template #elseblack>off</ng-template><br>
+ <label>Maximum No. of Attempts</label>{{obj.max_no_of_attempts}}<br>
+ <label>ICon</label>{{obj.icon}}<br>
+ <label>Created By</label>{{obj.created_by}}<br>
+ <label>Created On</label>{{obj.created_on | date: 'short'}}<br>
+ <label>Modified By</label>{{obj.modified_by}}<br>
+ <label>Modified On</label>{{obj.modified_on | date: 'short'}}<br>
+ <div *ngFor ="let qq of obj.quizQuestionObj">
+     <button {{qq.pool.poolName}}></button>
+ </div>
+</div>
+
+
+<router-outlet></router-outlet>
+</div>
