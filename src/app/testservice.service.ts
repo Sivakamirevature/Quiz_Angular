@@ -24,4 +24,8 @@ export class TestserviceService {
   {
     return this.http.put("http://localhost:8080/Quizzes/doActiveDeactiveQuiz/"+id,id);
   }
+
+  poolQuestions(id: number, poolname: string){
+    return this.http.get("http://localhost:8080/Quizzes/getpoolquestions/"+id+"/"+poolname);
+  }
 }

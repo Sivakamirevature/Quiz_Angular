@@ -1,8 +1,9 @@
-import { Component, OnInit, Pipe, PipeTransform} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { TestserviceService } from '../testservice.service';
 
-import { ActivatedRoute, Router } from '@angular/router';
-import * as _ from 'lodash'; 
+import { ActivatedRoute} from '@angular/router';
+
+
 
 
 @Component({
@@ -12,19 +13,14 @@ import * as _ from 'lodash';
 })
 
 
+
 export class QuizInfoComponent implements OnInit{
 
   object: any;
   id: number;
+  poolquestionobj: any;
 
-  constructor(private serviceClass: TestserviceService,  private route: ActivatedRoute, private router: Router ) { }
-
-//   transform(value: any): any{
-//     if(value!== undefined && value!== null){
-//         return _.uniqBy(value, 'poolName');
-//     }
-//     return value;
-// }
+  constructor(private serviceClass: TestserviceService,  private route: ActivatedRoute) { }
 
   ngOnInit(): void {
    this.id = Number(this.route.snapshot.paramMap.get('id'));
@@ -40,6 +36,16 @@ export class QuizInfoComponent implements OnInit{
     },
     error => {
       return console.log(error);
+    });
+  }
+
+  viewPoolLQuestions(quiz_id:number, poolName:string){
+    this.serviceClass.poolQuestions(quiz_id, poolName).subscribe((response:any)=>{
+      this.poolquestionobj = response;
+      console.log(this.poolquestionobj)
+    },
+    error=>{
+      return console.log(error)
     });
   }
 

@@ -12,13 +12,15 @@ import { ViewComponent } from './view/view.component';
 import { CreateQuizComponent } from './create-quiz/create-quiz.component';
 import { QuizInfoComponent } from './quiz-info/quiz-info.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PoolpipePipe } from './poolpipe.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     ViewComponent,
     CreateQuizComponent,
-    QuizInfoComponent
+    QuizInfoComponent,
+    PoolpipePipe
   ],
   imports: [
     BrowserModule,
