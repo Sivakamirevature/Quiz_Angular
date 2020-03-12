@@ -7,7 +7,7 @@ export class Quiz{
     activityPoints : number;
     duration:Time;
     max_no_of_attempts: number;
-    levelOverride: boolean;
+    level_override: boolean;
     slug: string;
     description: string;
     metaKeywords: string;

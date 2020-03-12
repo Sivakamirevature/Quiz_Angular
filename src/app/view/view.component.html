@@ -1,4 +1,4 @@
-<div><button align = "right" >Create New</button>
+<div><button align = "right" (click)="createPage()"> Create New</button>
     </div>
     <div>
  <div><table border=5 class="table table-bordered">
@@ -11,7 +11,6 @@
     <th>Created By</th>
     <th>Status</th>
     <th>Action</th>
-    <th>Questions</th>
 </tr></thead>
 <tbody > 
    <tr *ngFor="let obj of object; let i=index">
@@ -28,9 +27,8 @@
                  <button><img src="assets/Images/clone.png" alt="Clone"  height=30 width=30 ></button>
                  <button><img src="assets/Images/delete.png" alt="delete"  height=30 width=30 (click)="deleteQuiz(obj.quiz_id)"></button>
         </span></td>
-        <td>{{obj.quizQuestionObj[0].question.title}}</td>
     </tr>
 </tbody>
 </table>
-<router-outlet></router-outlet>
+<!-- <router-outlet></router-outlet> -->
 </div>

@@ -6,13 +6,14 @@ import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
 
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { TestserviceService } from './testservice.service';
+
 import { ViewComponent } from './view/view.component';
 
 import { CreateQuizComponent } from './create-quiz/create-quiz.component';
 import { QuizInfoComponent } from './quiz-info/quiz-info.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PoolpipePipe } from './poolpipe.pipe';
+import { QuizServiceService } from './quiz-service.service';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,7 @@ import { PoolpipePipe } from './poolpipe.pipe';
     HttpClientModule,
     BrowserAnimationsModule
   ],
-  providers: [HttpClient,HttpClientModule,TestserviceService],
+  providers: [HttpClient,HttpClientModule,QuizServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

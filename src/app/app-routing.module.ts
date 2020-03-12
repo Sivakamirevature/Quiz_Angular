@@ -6,7 +6,7 @@ import { QuizInfoComponent } from './quiz-info/quiz-info.component';
 const routes: Routes = [
   {path:'Show', component: ViewComponent},
   {path:'QuizInfo/:id', component: QuizInfoComponent},
- 
+  {path:'add', component: CreateQuizComponent}
 ];
 
 @NgModule({

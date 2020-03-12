@@ -1,10 +1,6 @@
 import { Component, OnInit} from '@angular/core';
-import { TestserviceService } from '../testservice.service';
-
 import { ActivatedRoute} from '@angular/router';
-
-
-
+import { QuizServiceService } from '../quiz-service.service';
 
 @Component({
   selector: 'app-quiz-info',
@@ -12,15 +8,13 @@ import { ActivatedRoute} from '@angular/router';
   styleUrls: ['./quiz-info.component.css']
 })
 
-
-
 export class QuizInfoComponent implements OnInit{
 
   object: any;
   id: number;
   poolquestionobj: any;
 
-  constructor(private serviceClass: TestserviceService,  private route: ActivatedRoute) { }
+  constructor(private serviceClass:QuizServiceService,  private route: ActivatedRoute) { }
 
   ngOnInit(): void {
    this.id = Number(this.route.snapshot.paramMap.get('id'));

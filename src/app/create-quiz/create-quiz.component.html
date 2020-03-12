@@ -1,87 +1,155 @@
-<h3>Create a Quiz</h3>
-<div  style="width: 400px;">
+
+<div  class="container-fluid" style="width: 800px;" >
     <form >
+        <h3>Create a Quiz</h3>
         <div class="form-group">
-            <label>Quiz Name   </label>
-            <input type="text" id="quizName" name="quizName"/>
+            <label>Quiz Name  </label>
+            <input type="text"  formControlName="quiz_name" class="form-control"/>
         </div>
 
         <div class="form-group">
             <label>Tags</label>
-            <input type="text" id="quizTags" name="quizTags"/>
+            <input type="text"  formControlName="quizTags" class="form-control"/>
         </div>
 
         <div class="form-group">
             <label>Activity Points  </label>
-            <input type="text" id="activityPoints" name="activityPoints"/>
+            <input type="text"  formControlName="activity_points" class="form-control"/>
         </div>
 
         <div class="form-group">
             <label>Duration</label>
-            <input type="text" id="duration" name="duration"/>
+            <input type="text"  formControlName="duration" class="form-control"/>
         </div>
 
         <div class="form-group">
             <label>Maximum No. of Attempts   </label>
-            <input type="text" id="no_ofAttempts" name="no_ofAttempts"/>
+            <input type="text" formControlName="max_no_of_Attempts" class="form-control"/>
         </div>
 
         <div class="form-group">
             <label>Level Override  </label>
-            <input type="radio" id="override_yes" name="override" value=1 />On
-            <input type="radio" id="override_no" name="override" value=0 />Off
+            <input type="radio" name="override" formControlName="level_override" value=1 class="form-control"/>On
+            <input type="radio" name="override" formControlName="level_override" value=0 class="form-control"/>Off
         </div>
 
         <div class="form-group">
-            <label>Maximum No. of Attempts   </label>
-            <input type="text" id="no_ofAttempts" name="no_ofAttempts"/>
+            <label>slug:</label>
+            <input [disabled]=true type="text" value="http://qa.revature/com/quizzes/"/>
+            <span><input type="text" formControlName="slug" class="form-control"/></span>
         </div>
 
         <div class="form-group">
-            <label>slug</label>
-            <input type="text" id="slug" name="slug"/>
+            <label>Description: </label>
+            <textarea formControlName="description" class="form-control"></textarea>
         </div>
 
         <div class="form-group">
-            <label>Description </label>
-            <textarea id="description" name="description"></textarea>
-        </div>
-
-        <div class="form-group">
-            <label>Meta Keywords   </label>
-            <input type="text" id="methokeywords" name="metakeywords"/>
+            <label>Meta Keywords:  </label>
+            <input type="text" formControlName="meta_keywords"class="form-control"/>
         </div>
 
         <div class="form-group">
             <label>Meta Description   </label>
-            <input type="text" id="metaDescription" name="metaDescription"/>
+            <input type="text" formControlName="meta_description" class="form-control"/>
         </div>
 
         <div class="form-group">
-            <label>Maximum No. of Attempts   </label>
-            <input type="text" id="no_ofAttempts" name="no_ofAttempts"/>
+            <label>Icon: </label>
+            <input type="file" formControlName="icon" class="form-control"/>
+        </div>
+        
+        <div class="form-group">
+            <label>Instructions:   </label>
+            <input type="text" formControlName="instructions" class="form-control"/>
+        </div>
+
+        <div formGroupName="category">
+            Category: <select  (change)=setCategoryId($event.target.value) id="categories" formControlName="categoryId">
+                <option value="" disabled selected>select</option>
+                <option *ngFor="let category of categories" [value]="category.categoryId">{{category.categoryName}}</option>
+              </select>
+        </div>
+
+        <div formGroupName="level">
+            Level: <select (change)=setLevelId($event.target.value) id="levels" formControlName="leveId">
+                <option value="" disabled selected>select</option>
+                <option *ngFor="let level of levels" [value]="level.levelId" >{{level.levelName}}</option>
+              </select>
         </div>
 
         <div class="form-group">
-            <label>Maximum No. of Attempts   </label>
-            <input type="text" id="no_ofAttempts" name="no_ofAttempts"/>
+            <label>Pass %:    </label>
+            <input type="text" formConrolName="pass_percentage" class="form-control"/>
         </div>
 
         <div class="form-group">
-            <label>Maximum No. of Attempts   </label>
-            <input type="text" id="no_ofAttempts" name="no_ofAttempts"/>
+            <label>Available For:   </label>
+            <input type="text" formConrolName="is_available_pre_signup" class="form-control"/>
+            <input type="text" formConrolName="is_available_via_slug" class="form-control"/>
+            <input type="text" formConrolName="is_available_dashboard" class="form-control"/>
         </div>
+        
 
-        <div class="form-group">
-            <label>Maximum No. of Attempts   </label>
-            <input type="text" id="no_ofAttempts" name="no_ofAttempts"/>
-        </div>
+        <fieldset>
+            <legend>Quiz settings</legend>
+            <div class="form-group">
+                <label>Timer Enabled:  </label>
+                <input type="radio" formConrolName="is_timer_enabled" name="isNumberEnabled" class="form-control">Yes
+                <input type="radio" formConrolName="is_timer_enabled" class="form-control">No
+            </div>
 
-        <div class="form-group">
-            <label>Maximum No. of Attempts   </label>
-            <input type="text" id="no_ofAttempts" name="no_ofAttempts"/>
-        </div>
-   <!-- <button type="submit" class="btn btn-success">Submit</button>-->
+            <div class="form-group">
+                <label>Shuffle Questions:  </label>
+                <input type="radio" formConrolName="is_shuffle_questions" name="isShuffleQuestions" class="form-control">Yes
+                <input type="radio" formConrolName="is_shuffle_questions" name="isShuffleQuestions" class="form-control">No
+            </div>
+
+            <div class="form-group">
+                <label>Shuffle Answers:  </label>
+                <input type="radio" formControlNamename="is_shuffle_answersr" name="isShuffleAnswer" class="form-control">Yes
+                <input type="radio" formControlNamename="is_shuffle_answersr" name="isShuffleAnswer" class="form-control">No
+            </div>
+
+            <div class="form-group">
+                <label>Display Score and Result at the end:  </label>
+                <input type="radio" formControlNamename = "is_display_score" name="isDisplayScore" class="form-control">Yes
+                <input type="radio" formControlNamename = "is_display_score" name="isDisplayScore" class="form-control">No
+            </div>
+
+            <div class="form-group">
+                <label>Allow Attempt Review:  </label>
+                <input type="checkbox" formControlName = "is_allow_attempt_review" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label>Show whether Correct:  </label>
+                <input type="checkbox" formControlName = "is_show_whether_correct" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label>Show Correct Answers:  </label>
+                <input type="checkbox" formControlName = "is_show_correct_answers_passed" class="form-control">Passed
+                <input type="checkbox" formControlName = "is_show_correct_answers_failed"  class="form-control">Failed
+            </div>
+
+            <div class="form-group">
+                <label>Show Answer Explanations:  </label>
+                <input type="radio" formControlName = "is_show_answer_explanations" name="isShowExplanation"  value = 1 class="form-control">Yes
+                <input type="radio" formControlName = "is_show_correct_answers_passed" name="isShowExplanation" value = 0 class="form-control">No
+            </div>
+
+            <div class="form-group">
+                <label>Enable Save and Resume:  </label>
+                <input type="checkbox" formControlName = "is_enable_save_resume" class="form-control">
+            </div>
+        
+        </fieldset>
+   <button type="checkbox" class="btn btn-success" (click) = "addQuestions()">Add Question</button>
+
+   <div [hidden] ="isshow"><h1>This is hidden tag</h1>></div>
+
+
     </form>
 </div>
 

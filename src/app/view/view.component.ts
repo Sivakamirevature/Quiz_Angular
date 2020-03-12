@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {TestserviceService} from '../testservice.service';
-import {QuizInfoComponent} from '../quiz-info/quiz-info.component';
+import {Router} from '@angular/router';
+import { QuizServiceService } from '../quiz-service.service';
 
 @Component({
   selector: 'app-view',
@@ -10,26 +10,29 @@ import {QuizInfoComponent} from '../quiz-info/quiz-info.component';
 export class ViewComponent implements OnInit {
   object: Array <any>=[];
 
-  constructor(private serviceClass:TestserviceService) { }
+  constructor(private serviceClass: QuizServiceService, private router: Router) { }
 
   ngOnInit(): void {
     this.view();
   }
 
   view() {
-    this.serviceClass.view().subscribe((res :any)=>{
-      this.object=res;
+    this.serviceClass.view().subscribe((response :any)=>{
+      this.object=response;
       console.log(this.object)
+      console.log("CATEGORY:2 "+ response) 
       //console.log(this.object[0].quiz_name)
+    },
+    error => {
+      return console.log(error);
     });
   }
 
   deleteQuiz(id: number) {
    this.serviceClass.deleteQuiz(id)
         .subscribe(
-         data => {
-            console.log(data);
-            
+         response => {
+            console.log(response);
            this.view();
           },
          error => {
@@ -37,10 +40,9 @@ export class ViewComponent implements OnInit {
           });
     
   }
-  
-  
+    
   activeDeactive(quiz_id:number){
-    this.serviceClass.activeDeactive(quiz_id).subscribe(data => {console.log(data);
+    this.serviceClass.activeDeactive(quiz_id).subscribe(response => {console.log(response);
       this.view();
       alert("Activation Mode Changed");
     console.log(this.view());
@@ -49,4 +51,8 @@ export class ViewComponent implements OnInit {
       return console.log(error);
     });
   }
+
+  createPage(){
+    this.router.navigate(['/add']);  // define your component where you want to go
+}
 }
