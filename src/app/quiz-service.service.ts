@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Category } from './quiz';
+import { Category, Quiz } from './quiz';
 
 @Injectable({
   providedIn: 'root'
@@ -34,5 +34,14 @@ export class QuizServiceService {
   }
   getLevels(){
     return this.http.get(this.url+"getLevels");
+  }
+
+  getAllQuestions(){
+    return this.http.get("http://localhost:8080/questions/showAllQuestions");
+  }
+
+  createQuiz(quiz:Quiz){
+    return this.http.post(this.url+"doCreateQuiz", quiz);
+
   }
 }

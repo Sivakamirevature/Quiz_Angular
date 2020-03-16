@@ -1,15 +1,14 @@
-
 <div  class="container-fluid" style="width: 800px;" >
-    <form >
+    <form [formGroup]="quizForm">
         <h3>Create a Quiz</h3>
         <div class="form-group">
             <label>Quiz Name  </label>
-            <input type="text"  formControlName="quiz_name" class="form-control"/>
+            <input type="text" id="quiz_name" name="quiz_name" formControlName="quiz_name" class="form-control"/>
         </div>
 
         <div class="form-group">
             <label>Tags</label>
-            <input type="text"  formControlName="quizTags" class="form-control"/>
+            <input type="text"  formControlName="tags" class="form-control"/>
         </div>
 
         <div class="form-group">
@@ -24,13 +23,13 @@
 
         <div class="form-group">
             <label>Maximum No. of Attempts   </label>
-            <input type="text" formControlName="max_no_of_Attempts" class="form-control"/>
+            <input type="number" min=0 max =10 oninput="validity.valid||(value='');" formControlName="max_no_of_Attempts" class="form-control"/>
         </div>
 
         <div class="form-group">
             <label>Level Override  </label>
-            <input type="radio" name="override" formControlName="level_override" value=1 class="form-control"/>On
-            <input type="radio" name="override" formControlName="level_override" value=0 class="form-control"/>Off
+            <input type="radio" name="level_override" formControlName="level_override" value=1 class="form-control"/>On
+            <input type="radio" name="level_override" formControlName="level_override" value=0 class="form-control"/>Off
         </div>
 
         <div class="form-group">
@@ -65,14 +64,14 @@
         </div>
 
         <div formGroupName="category">
-            Category: <select  (change)=setCategoryId($event.target.value) id="categories" formControlName="categoryId">
+            Category: <select  (change)=setCategoryId($event.target.value) id="categoryId" formControlName="categoryId">
                 <option value="" disabled selected>select</option>
                 <option *ngFor="let category of categories" [value]="category.categoryId">{{category.categoryName}}</option>
               </select>
-        </div>
+        </div> -->
 
         <div formGroupName="level">
-            Level: <select (change)=setLevelId($event.target.value) id="levels" formControlName="leveId">
+            Level: <select (change)=setLevelId($event.target.value) id="leveId" formControlName="levelId">
                 <option value="" disabled selected>select</option>
                 <option *ngFor="let level of levels" [value]="level.levelId" >{{level.levelName}}</option>
               </select>
@@ -85,9 +84,9 @@
 
         <div class="form-group">
             <label>Available For:   </label>
-            <input type="text" formConrolName="is_available_pre_signup" class="form-control"/>
-            <input type="text" formConrolName="is_available_via_slug" class="form-control"/>
-            <input type="text" formConrolName="is_available_dashboard" class="form-control"/>
+            <input type="checkbox" formConrolName="is_available_pre_signup" class="form-control"/>
+            <input type="checkbox" formConrolName="is_available_via_slug" class="form-control"/>
+            <input type="checkbox" formConrolName="is_available_dashboard" class="form-control"/>
         </div>
         
 
@@ -95,26 +94,26 @@
             <legend>Quiz settings</legend>
             <div class="form-group">
                 <label>Timer Enabled:  </label>
-                <input type="radio" formConrolName="is_timer_enabled" name="isNumberEnabled" class="form-control">Yes
-                <input type="radio" formConrolName="is_timer_enabled" class="form-control">No
+                <input type="radio" formConrolName="is_timer_enabled" name="is_timer_enabled" class="form-control">Yes
+                <input type="radio" formConrolName="is_timer_enabled"  name="is_timer_enabled" class="form-control">No
             </div>
 
             <div class="form-group">
                 <label>Shuffle Questions:  </label>
-                <input type="radio" formConrolName="is_shuffle_questions" name="isShuffleQuestions" class="form-control">Yes
-                <input type="radio" formConrolName="is_shuffle_questions" name="isShuffleQuestions" class="form-control">No
+                <input type="radio" formConrolName="is_shuffle_questions" name="is_shuffle_questions" class="form-control">Yes
+                <input type="radio" formConrolName="is_shuffle_questions" name="is_shuffle_questions" class="form-control">No
             </div>
 
             <div class="form-group">
                 <label>Shuffle Answers:  </label>
-                <input type="radio" formControlNamename="is_shuffle_answersr" name="isShuffleAnswer" class="form-control">Yes
-                <input type="radio" formControlNamename="is_shuffle_answersr" name="isShuffleAnswer" class="form-control">No
+                <input type="radio" formControlNamename="is_shuffle_answers" name="is_shuffle_answers" class="form-control">Yes
+                <input type="radio" formControlNamename="is_shuffle_answers" name="is_shuffle_answers" class="form-control">No
             </div>
 
             <div class="form-group">
                 <label>Display Score and Result at the end:  </label>
-                <input type="radio" formControlNamename = "is_display_score" name="isDisplayScore" class="form-control">Yes
-                <input type="radio" formControlNamename = "is_display_score" name="isDisplayScore" class="form-control">No
+                <input type="radio" formControlNamename = "is_display_score" name="is_display_score" class="form-control">Yes
+                <input type="radio" formControlNamename = "is_display_score" name="is_display_score" class="form-control">No
             </div>
 
             <div class="form-group">
@@ -135,24 +134,61 @@
 
             <div class="form-group">
                 <label>Show Answer Explanations:  </label>
-                <input type="radio" formControlName = "is_show_answer_explanations" name="isShowExplanation"  value = 1 class="form-control">Yes
-                <input type="radio" formControlName = "is_show_correct_answers_passed" name="isShowExplanation" value = 0 class="form-control">No
+                <input type="radio" formControlName = "is_show_answer_explanations" name="is_show_answer_explanations"  value = 1 class="form-control">Yes
+                <input type="radio" formControlName = "is_show_answer_explanations" name="is_show_answer_explanations" value = 0 class="form-control">No
             </div>
 
             <div class="form-group">
                 <label>Enable Save and Resume:  </label>
                 <input type="checkbox" formControlName = "is_enable_save_resume" class="form-control">
             </div>
-        
         </fieldset>
-   <button type="checkbox" class="btn btn-success" (click) = "addQuestions()">Add Question</button>
+        <button type="submit" class="btn btn-primary" (click) = "getQuestions()">Show Question</button>
 
-   <div [hidden] ="isshow"><h1>This is hidden tag</h1>></div>
-
-
+        <div >
+            <div formGroupName="pool">
+                Level: <select (change)=setPoolId($event.target.value) id="poolId" formControlName="poolId">
+                    <option value="" disabled selected>select</option>
+                    <option *ngFor="let pool of pools" [value]="pool.id" >{{pool.poolName}}</option>
+                  </select>
+            </div>
+            <table class="table table-bordered">
+                <thead> <tr>
+                    <th><input type = "checkbox" value = "question.id" ></th>   
+                    <th>Queestion Title</th>
+                    <th>Question Type</th>
+                    <th>Tags</th>
+                    <th>Category</th>
+                    <th>Level</th>
+                </tr></thead>
+                    <tr *ngFor = "let question of questions;"> 
+                    <td>
+                        <input type = "checkbox" (change) = "getCheckBoxValue($event)" [value] = "question.id" id = "questionId">
+                    </td>
+                    <td>
+                       {{question.title}}
+                    </td>
+                    <td>
+                        {{question.questionType.name}}
+                    </td>
+                    <td>
+                        {{question.tags}}
+                    </td>
+                    <td>
+                        {{question.level.levelName}}
+                    </td>
+                    <td>
+                        {{question.category.categoryName}}
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <button type="submit" class="btn btn-primary" (click) = "save()">Create Quiz</button>
     </form>
+    <!-- {{quizForm.value|json}} -->
+    <!-- {{q|json}} -->
+    {{quizquestion|json}}
 </div>
-
 <!--<div [hidden]="!submitted">
     <h4>You submitted successfully!</h4>
 </div>-->

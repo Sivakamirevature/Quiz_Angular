@@ -20,8 +20,6 @@ export class ViewComponent implements OnInit {
     this.serviceClass.view().subscribe((response :any)=>{
       this.object=response;
       console.log(this.object)
-      console.log("CATEGORY:2 "+ response) 
-      //console.log(this.object[0].quiz_name)
     },
     error => {
       return console.log(error);
@@ -33,12 +31,12 @@ export class ViewComponent implements OnInit {
         .subscribe(
          response => {
             console.log(response);
+            alert("Are you Sure do you delete the Quiz?");
            this.view();
           },
          error => {
             return console.log(error);
           });
-    
   }
     
   activeDeactive(quiz_id:number){

@@ -14,6 +14,8 @@ import { QuizInfoComponent } from './quiz-info/quiz-info.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PoolpipePipe } from './poolpipe.pipe';
 import { QuizServiceService } from './quiz-service.service';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import { QuizServiceService } from './quiz-service.service';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ReactiveFormsModule
   ],
   providers: [HttpClient,HttpClientModule,QuizServiceService],
   bootstrap: [AppComponent]

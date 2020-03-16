@@ -1,3 +1,6 @@
+<div>
+       <button [routerLink] = "['/view']">Back</button> 
+</div>
 <div class = "container-fluid" style="background: rgb(197, 228, 228)">
 <div *ngFor = "let obj of object">
  <h2 align="center" color="blue">{{obj.quiz_name | titlecase}}</h2>
@@ -20,9 +23,23 @@
  <label>Modified On</label>{{obj.modified_on | date: 'short'}}<br>
  <div *ngFor ="let qq of obj.quizQuestionObj | poolpipe">
         <button (click) = "viewPoolLQuestions(obj.quiz_id, qq.pool.poolName)" >{{qq.pool.poolName }}</button>
+ <table border=5 class="table table-bordered">
+              <thead> <tr>
+               <th>S.No</th>   
+               <th>Question Text</th>
+               <th>Question Type</th>
+               <th>Category</th>
+               <th>Level</th>
+           </tr></thead>
+           <tbody> 
+              <tr>
+                  <td>{{1}}</td>
+                  <td>{{qq.question.content}}</td>
+                   <td>{{qq.question.questionType.name}}</td>
+                   <td>{{qq.question.level.levelName}}</td>
+                   <td>{{qq.question.category.categoryName}}</td>
+               </tr>
+           </tbody>
+           </table>
+       </div>     
  </div>
-</div>
-
-
-<router-outlet></router-outlet>
-</div>
