@@ -36,6 +36,9 @@ export class QuizServiceService {
     return this.http.get(this.url+"getLevels");
   }
 
+  getPools(){
+    return this.http.get(this.url+"getPools");
+  }
   getAllQuestions(){
     return this.http.get("http://localhost:8080/questions/showAllQuestions");
   }

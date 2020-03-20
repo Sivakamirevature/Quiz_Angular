@@ -1,4 +1,5 @@
-<div  class="container-fluid" style="width: 800px;" >
+<div  class="container-fluid" style="width: 800px">
+   
     <form [formGroup]="quizForm">
         <h3>Create a Quiz</h3>
         <div class="form-group">
@@ -28,7 +29,7 @@
 
         <div class="form-group">
             <label>Level Override  </label>
-            <input type="radio" name="level_override" formControlName="level_override" value=1 class="form-control"/>On
+            <input type="radio" name="level_override" formControlName="level_override" value=1 [(ngModel)]= "check" class="form-control"/>On
             <input type="radio" name="level_override" formControlName="level_override" value=0 class="form-control"/>Off
         </div>
 

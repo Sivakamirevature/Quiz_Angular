@@ -15,6 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PoolpipePipe } from './poolpipe.pipe';
 import { QuizServiceService } from './quiz-service.service';
 import { ReactiveFormsModule } from '@angular/forms';
+import { UpdatedQuizComponent } from './updated-quiz/updated-quiz.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     ViewComponent,
     CreateQuizComponent,
     QuizInfoComponent,
-    PoolpipePipe
+    PoolpipePipe,
+    UpdatedQuizComponent
   ],
   imports: [
     BrowserModule,

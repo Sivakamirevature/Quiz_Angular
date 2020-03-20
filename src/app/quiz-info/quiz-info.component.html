@@ -22,7 +22,7 @@
  <label>Modified By</label>{{obj.modified_by}}<br>
  <label>Modified On</label>{{obj.modified_on | date: 'short'}}<br>
  <div *ngFor ="let qq of obj.quizQuestionObj | poolpipe">
-        <button (click) = "viewPoolLQuestions(obj.quiz_id, qq.pool.poolName)" >{{qq.pool.poolName }}</button>
+        <button (click) = "viewPoolLQuestions(obj.quiz_id, qq.pool.poolName)" >{{qq.pool.poolName}}</button>
  <table border=5 class="table table-bordered">
               <thead> <tr>
                <th>S.No</th>   
@@ -31,7 +31,7 @@
                <th>Category</th>
                <th>Level</th>
            </tr></thead>
-           <tbody> 
+           <tbody>
               <tr>
                   <td>{{1}}</td>
                   <td>{{qq.question.content}}</td>
