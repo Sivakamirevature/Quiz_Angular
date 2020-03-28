@@ -3,10 +3,6 @@ import { QuizServiceService } from '../quiz-service.service';
 import { FormGroup, Validators, FormBuilder, FormArray, FormControl } from '@angular/forms';
 import { Category, Level, Quiz, Pool, Question  } from './quiz';
 
-
-
-
-
 @Component({
   selector: 'app-create-quiz',
   templateUrl: './create-quiz.component.html',
@@ -23,7 +19,11 @@ export class CreateQuizComponent implements OnInit {
   q:Array<any>=[];
   quizquestion:any;
   requestBody: any;
-  
+  questionIds:any = []
+  count = 0;
+  count1 = 0;
+  obj1: any;
+  submitted = false;
 
   constructor(private serviceClass:QuizServiceService, private formbuilder: FormBuilder) { }
 
@@ -118,27 +118,40 @@ export class CreateQuizComponent implements OnInit {
         i++;
       })
     }
+    console.log(this.quizQuestionObj1.value);
   }
  
       getQuestions(){
-        this.serviceClass.getAllQuestions().subscribe((response : any)=>{
+        this.serviceClass.getAllQuestions().subscribe((response : any)=>{  
           this.questions = response;
+          console.log("Questions: "+this.questions)
+          if(this.count === 0){
+          for(let i=0;i<this.questions.length;i++){
+            this.questionIds.push(this.questions[i].id)
+            this.count = this.count +1;
+          }
         }
+      }
         );
       }
 
-      addQuestions(){   
+      addQuestions(){
         for(let i=0;i<this.quizQuestionObj1.length;i++)
         {
-          console.log("Iterated Value: "+this.quizQuestionObj1.value[i])
-                              // var qq = new Quiz(this.quizForm.quiz_name, tags1, activity_points1, duration1, max_no_of_Attempts1, level_override1, slug1, description1, meta_keywords1, meta_description1, icon1, instructions1, category1, level1, pass_percentage1, is_available_pre_signup1, is_available_via_slug1, is_available_dashboard1, is_timer_enabled1, is_shuffle_questions1, is_shuffle_answers1, is_display_score1, is_allow_attempt_review1, is_show_whether_correct1, is_show_correct_answers_passed1, is_show_correct_answers_failed1, is_show_answer_explanations1, is_enable_save_resume1, quizQuesObj1)
-                              let obj1 = {
-                                id: Number(this.quizQuestionObj1.value[i]),
-                              }
-                                let obj2 = {question: obj1, pool: this.quizForm.get("pool").value}
-                                this.q.push(obj2);
-                            }
-                           this.quizquestion = this.q;                        
+              this.questionIds.forEach((element,index) => {
+              if(element==this.quizQuestionObj1.value[i]){
+              this.questionIds.splice(index,1)
+              }});
+              let obj2 = {question_id:  Number(this.quizQuestionObj1.value[i]), pool: this.quizForm.get("pool").value}
+              console.log("obj2: "+JSON.stringify(obj2))
+              this.q.push(obj2);
+              
+            }
+            console.log("Q value: "+JSON.stringify(this.q))
+           
+              this.quizquestion = this.q;
+              console.log("Quiz value value: "+ JSON.stringify(this.quizquestion))
+              this.getQuestions();                                      
               }
       save(){
         this.requestBody = {
@@ -170,11 +183,13 @@ export class CreateQuizComponent implements OnInit {
           is_show_correct_answers_failed: Number(this.quizForm.get("is_show_correct_answers_failed").value),
           is_show_answer_explanations: Number(this.quizForm.get("is_show_answer_explanations").value),
           is_enable_save_resume: Number(this.quizForm.get("is_enable_save_resume").value),
-          quizQuestionObj: this.quizquestion   
+          quizQuestionObj: this.quizquestion
      } 
-     console.log("Request Body: "+ this.requestBody.value)
+     console.log("Request Body: "+ JSON.stringify(this.requestBody))
      this.serviceClass.createQuiz(this.requestBody).subscribe(response => {
       alert("Inserted Successfully")
     })
   }
+
+  get f() { return this.quizForm.controls; }
 }

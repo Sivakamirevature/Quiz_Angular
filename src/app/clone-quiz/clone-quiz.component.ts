@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, Validators, FormArray } from '@angular/forms';
-import { Level, Category } from '../quiz';
+import { Category, Level } from '../quiz';
 import { Pool } from '../create-quiz/quiz';
+import { FormGroup, FormArray, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { QuizServiceService } from '../quiz-service.service';
 import { ActivatedRoute } from '@angular/router';
-import { element } from 'protractor';
 
 @Component({
-  selector: 'app-updated-quiz',
-  templateUrl: './updated-quiz.component.html',
-  styleUrls: ['./updated-quiz.component.css']
+  selector: 'app-clone-quiz',
+  templateUrl: './clone-quiz.component.html',
+  styleUrls: ['./clone-quiz.component.css']
 })
-export class UpdatedQuizComponent implements OnInit {
+export class CloneQuizComponent implements OnInit {
+
   categories: Array<Category> = [];
   levels: Array<Level> = [];
   pools: Array<Pool> = [];
@@ -57,8 +57,8 @@ export class UpdatedQuizComponent implements OnInit {
     meta_description: this.object[0].meta_description,
   //  icon: this.object[0].icon,
     instructions: this.object[0].instructions,
-     category: { categoryId: this.object[0].category.categoryId},
-     level: { levelId: this.object[0].level.levelId},
+    category: { categoryId: this.object[0].category.categoryId},
+    level: { levelId: this.object[0].level.levelId},
     pass_percentage: this.object[0].pass_percentage,
     is_available_pre_signup: this.object[0].is_available_pre_signup,
     is_available_via_slug: this.object[0].is_available_via_slug,
@@ -212,8 +212,9 @@ viewPoolLQuestions(quiz_id:number, poolName:string){
   });
 }
 deleteQuestion(id){
-  if(confirm("Are sure, Do you delete Question?")){
+  if(confirm("Are you sure, Do you want to delete the question?")){
   this.serviceClass.deleteQuestion(id).subscribe(response =>{
+  alert("Delted Successfully")
   });
   this.object.forEach(element=>{
     element.quizQuestionObj.forEach((ele,index) => {
@@ -261,8 +262,8 @@ deleteQuestion(id){
     quizQuestionObj: this.quizquestion   
 } 
 console.log("Request Body: "+ this.requestBody.value)
-this.serviceClass.updateQuiz(this.requestBody).subscribe(response => {
+this.serviceClass.createQuiz(this.requestBody).subscribe(response => {
 alert("Inserted Successfully")
 })
 }
-}  
+}

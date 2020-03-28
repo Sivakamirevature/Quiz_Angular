@@ -9,9 +9,7 @@ import { QuizServiceService } from '../quiz-service.service';
 })
 export class ViewComponent implements OnInit {
   object: Array <any>=[];
-
   constructor(private serviceClass: QuizServiceService, private router: Router) { }
-
   ngOnInit(): void {
     this.view();
   }
@@ -27,28 +25,31 @@ export class ViewComponent implements OnInit {
   }
 
   deleteQuiz(id: number) {
+   if(confirm("Are you sure, do you delete the Quiz?")){
    this.serviceClass.deleteQuiz(id)
         .subscribe(
          response => {
             console.log(response);
-            alert("Are you Sure do you delete the Quiz?");
            this.view();
           },
+   
          error => {
-            return console.log(error);
-          });
+           return console.log(error);
+         });
+        }
   }
     
   activeDeactive(quiz_id:number){
+    if(confirm("Are you Sure, Do you want to change the Activation Mode?")){
     this.serviceClass.activeDeactive(quiz_id).subscribe(response => {console.log(response);
       this.view();
-      alert("Activation Mode Changed");
     console.log(this.view());
   },
     error => {
       return console.log(error);
     });
   }
+}
 
   createPage(){
     this.router.navigate(['/add']);  // define your component where you want to go

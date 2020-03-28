@@ -1,35 +1,54 @@
-<div  class="container-fluid" style="width: 800px;" >
+<div  class="container" >
     <form [formGroup]="quizForm">
+        <!-- <div *ngIf="submitted && f.title.errors" class="invalid-feedback">
+            <div *ngIf="f.title.errors.required">Title is required</div>
+        </div>
+    </div> -->
+    <!-- </div> -->
         <h3>Create a Quiz</h3>
-        <div class="form-group">
-            <label>Quiz Name  </label>
-            <input type="text" id="quiz_name" name="quiz_name" formControlName="quiz_name" class="form-control"/>
-        </div>
+        <div class="row">
+            <div class="col-md-6">
+                    <label>Quiz Name  </label> 
+                    <input type="text" id="quiz_name" name="quiz_name" formControlName="quiz_name" class="form-control"/>         
+            </div>
+            <div class="col-md-6">
+                <label>Tags</label>
+                <input type="text"  formControlName="tags" class="form-control"/>
+            </div>
+        </div><br>
 
-        <div class="form-group">
-            <label>Tags</label>
-            <input type="text"  formControlName="tags" class="form-control"/>
-        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label>Activity Points  </label>
+                <input type="text"  formControlName="activity_points" class="form-control"/>
+            </div>
+            <div class="col-md-6">
+                <label>Duration</label>
+                <input type="text"  formControlName="duration" class="form-control"/>
+            </div>
+        </div><br>
 
-        <div class="form-group">
-            <label>Activity Points  </label>
-            <input type="text"  formControlName="activity_points" class="form-control"/>
+        <div class = "row">
+            <div class="col-md-6">
+                <label>Maximum No. of Attempts   </label>
+                <input type="number" min=0 max =10 oninput="validity.valid||(value='');" formControlName="max_no_of_Attempts" class="form-control"/>
+            </div>
+            <div class="col-md-6" style="white-space:nowrap;">
+                <label>Level Override</label><br><br>
+                <label for="one">
+                    <input type="radio" name="level_override" formControlName="level_override" value=1 />
+                    On
+                    <input type="radio"  name="level_override" formControlName="level_override" value=0 />
+                    Off
+                    </label>           
+            </div>           
         </div>
-
         <div class="form-group">
-            <label>Duration</label>
-            <input type="text"  formControlName="duration" class="form-control"/>
         </div>
-
         <div class="form-group">
-            <label>Maximum No. of Attempts   </label>
-            <input type="number" min=0 max =10 oninput="validity.valid||(value='');" formControlName="max_no_of_Attempts" class="form-control"/>
         </div>
-
         <div class="form-group">
-            <label>Level Override  </label>
-            <input type="radio" name="level_override" formControlName="level_override" value=1 class="form-control"/>On
-            <input type="radio" name="level_override" formControlName="level_override" value=0 class="form-control"/>Off
+           
         </div>
 
         <div class="form-group">
@@ -68,7 +87,7 @@
                 <option value="" disabled selected>select</option>
                 <option *ngFor="let category of categories" [value]="category.categoryId">{{category.categoryName}}</option>
               </select>
-        </div> -->
+        </div>
 
         <div formGroupName="level">
             Level: <select (change)=setLevelId($event.target.value) id="leveId" formControlName="levelId">
@@ -87,8 +106,7 @@
             <input type="checkbox" formConrolName="is_available_pre_signup" class="form-control"/>
             <input type="checkbox" formConrolName="is_available_via_slug" class="form-control"/>
             <input type="checkbox" formConrolName="is_available_dashboard" class="form-control"/>
-        </div>
-        
+        </div>   
 
         <fieldset>
             <legend>Quiz settings</legend>
@@ -162,24 +180,26 @@
                     <th>Level</th>
                 </tr></thead>
                     <tr *ngFor = "let question of questions;"> 
-                    <td>
+                    <ng-container *ngIf="questionIds.includes(question.id)">
+                    <td >
                         <input type = "checkbox" (change) = "getCheckBoxValue($event)" [value] = "question.id" id = "questionId">
                     </td>
                     <td>
                        {{question.title}}
                     </td>
                     <td>
-                        {{question.questionType.name}}
+                        {{question.type_Id.name}}
                     </td>
                     <td>
                         {{question.tags}}
                     </td>
                     <td>
-                        {{question.level.levelName}}
-                    </td>
-                    <td>
                         {{question.category.categoryName}}
                     </td>
+                    <td>
+                        {{question.level.levelName}}
+                    </td>
+                </ng-container>
                 </tr>
             </table>
         </div>

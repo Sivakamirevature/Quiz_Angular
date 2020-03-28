@@ -40,11 +40,18 @@ export class QuizServiceService {
     return this.http.get(this.url+"getPools");
   }
   getAllQuestions(){
-    return this.http.get("http://localhost:8080/questions/showAllQuestions");
+    return this.http.get("http://localhost:8080/Quizzes/getAllQuestions");
   }
 
   createQuiz(quiz:Quiz){
     return this.http.post(this.url+"doCreateQuiz", quiz);
 
+  }
+
+  deleteQuestion(id){
+    return this.http.delete(this.url+"deleteQuestion/"+id)
+  }
+  updateQuiz(quiz:Quiz){
+    return this.http.put(this.url+"doUpdateQuiz", quiz);
   }
 }

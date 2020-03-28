@@ -20,7 +20,6 @@ export class QuizInfoComponent implements OnInit{
    this.id = Number(this.route.snapshot.paramMap.get('id'));
    console.log("Quiz id is: "+this.id)
    this.SingleQuizInfo(this.id);
-
   }
   SingleQuizInfo(id:number){
     this.serviceClass.SingleQuizInfo(this.id).subscribe((res :any)=>{
@@ -36,12 +35,11 @@ export class QuizInfoComponent implements OnInit{
   viewPoolLQuestions(quiz_id:number, poolName:string){
     this.serviceClass.poolQuestions(quiz_id, poolName).subscribe((response:any)=>{
       this.poolquestionobj = response;
-      console.log(this.poolquestionobj)
+      console.log("Pool Questions",this.poolquestionobj)
     },
     error=>{
       return console.log(error)
     });
   }
-
 }
 

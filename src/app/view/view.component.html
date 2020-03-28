@@ -24,7 +24,7 @@
         <ng-template #elseBlock><td><button style=background-color:goldenrod (click)="activeDeactive(obj.quiz_id)">inactive</button></td></ng-template>   
        
         <td><span><button><img src="assets/Images/edit.jpg" alt="Edit"  height=30 width=30 [routerLink] = "['/edit/', obj.quiz_id]" ></button>
-                 <button><img src="assets/Images/clone.png" alt="Clone"  height=30 width=30></button>
+                 <button><img src="assets/Images/clone.png" alt="Clone"  height=30 width=30 [routerLink] = "['/clone/', obj.quiz_id]"></button>
                  <button><img src="assets/Images/delete.png" alt="delete"  height=30 width=30 (click)="deleteQuiz(obj.quiz_id)"></button>
         </span></td>
     </tr>

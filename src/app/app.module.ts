@@ -16,6 +16,7 @@ import { PoolpipePipe } from './poolpipe.pipe';
 import { QuizServiceService } from './quiz-service.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UpdatedQuizComponent } from './updated-quiz/updated-quiz.component';
+import { CloneQuizComponent } from './clone-quiz/clone-quiz.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { UpdatedQuizComponent } from './updated-quiz/updated-quiz.component';
     CreateQuizComponent,
     QuizInfoComponent,
     PoolpipePipe,
-    UpdatedQuizComponent
+    UpdatedQuizComponent,
+    CloneQuizComponent
   ],
   imports: [
     BrowserModule,
