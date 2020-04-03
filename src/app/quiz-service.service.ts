@@ -26,7 +26,7 @@ export class QuizServiceService {
     }
     
   poolQuestions(id: number, poolname: string){
-    return this.http.get(this.url+"getpoolquestions/"+id+"/"+poolname);
+    return this.http.get(this.url+"getQuestionsByQuizID/"+id+"/"+poolname);
   }
 
   getCategories(){

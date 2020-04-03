@@ -75,7 +75,7 @@ export class CloneQuizComponent implements OnInit {
     is_enable_save_resume: this.object[0].is_enable_save_resume   
     });
     this.object[0].quizQuestionObj.forEach(element => {
-      this.selectedQuiestionIds.push(element.question.id);
+      this.selectedQuiestionIds.push(element.id);
       console.log("selected Question Ids: "+this.selectedQuiestionIds)
     });
   },

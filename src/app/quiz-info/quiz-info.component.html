@@ -38,9 +38,10 @@
             <label>Modified By</label>{{obj.modified_by}}<br>
             <label>Modified On</label>{{obj.modified_on | date: 'short'}}<br>
             <div *ngFor ="let qq of obj.quizQuestionObj | poolpipe">
-                <button (click) = "viewPoolLQuestions(obj.quiz_id, qq.pool.poolName)" >{{qq.pool.poolName}}</button>
-                <ng-container *ngFor = "let poolquestion of poolquestionobj; index as i">
-                <ng-container *ngIf = "poolquestion.pool.poolName === qq.pool.poolName">
+                <button (click) = "viewPoolQuestions(obj.quiz_id, qq.pool.poolName)" >{{qq.pool.poolName}}</button>    
+            </div>  
+            <ng-container *ngFor = "let poolquestion of poolquestionobj; index as i">
+                <!-- <ng-container *ngIf = "poolquestion.pool.poolName === qq.pool.poolName"> -->
                 <table border=5 class="table table-bordered">
                     <thead> <tr>
                     <th>S.No</th>
@@ -52,15 +53,14 @@
                     <tbody>   
                     <tr>
                         <td>{{i+1}}</td>
-                        <td>{{poolquestion.question.content}}</td>
-                        <td>{{poolquestion.question.questionType.name}}</td>
-                        <td>{{poolquestion.question.level.levelName}}</td>
-                        <td>{{poolquestion.question.category.categoryName}}</td>
+                        <td>{{poolquestion.content}}</td>
+                        <td>{{poolquestion.type_Id.name}}</td>
+                        <td>{{poolquestion.category.categoryName}}</td>
+                        <td>{{poolquestion.level.levelName}}</td>
                     </tr> 
                  </tbody>  
         </table>    
-    </ng-container>
-    </ng-container>
- </div>     
+    <!-- </ng-container> -->
+    </ng-container>   
  </div>
-    </div>
+</div>

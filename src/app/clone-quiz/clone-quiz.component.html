@@ -143,61 +143,31 @@
                 <input type="checkbox" formControlName = "is_enable_save_resume" class="form-control">
             </div>
         </fieldset>
-        <!-- <div *ngFor = "let obj of object">
-        <div *ngFor ="let qq of obj.quizQuestionObj | poolpipe; index as i">
-            <button (click) = "viewPoolLQuestions(obj.quiz_id, qq.pool.poolName)" >{{qq.pool.poolName}}</button>
-            <ng-container *ngIf="selectedQuiestionIds.includes(qq.question.id)"> -->
-              
-        <!-- <table border=5 class="table table-bordered">
-                  <thead> <tr>
-                   <th>S.No</th>   
-                   <th>Question Text</th>
-                   <th>Question Type</th>
-                   <th>Category</th>
-                   <th>Level</th>
-                   <th>Delete</th>
-               </tr></thead>
-               <tbody>
-                  <tr>
-                      <td>{{i+1}}</td>
-                      <td>{{qq.question.content}}</td>
-                       <td>{{qq.question.questionType.name}}</td>
-                       <td>{{qq.question.level.levelName}}</td>
-                       <td>{{qq.question.category.categoryName}}</td>
-                       <td><button><img src="assets/Images/delete.png" alt="delete"  height=30 width=30 (click)="deleteQuestion(qq.id)"></button></td>
-                   </tr>
-               </tbody>
-               </table>
-                </ng-container> 
-           </div>     
-        </div> -->
         <div *ngFor ="let qq of object[0].quizQuestionObj | poolpipe">
             <button (click) = "viewPoolLQuestions(object[0].quiz_id, qq.pool.poolName)" >{{qq.pool.poolName}}</button>
-            <ng-container *ngFor = "let poolquestion of poolquestionobj; index as i">
-                <ng-container *ngIf = "poolquestion.pool.poolName === qq.pool.poolName">
-     <table border=5 class="table table-bordered">
-                  <thead> <tr>
-                   <th>S.No</th>
-                   <th>Question Text</th>
-                   <th>Question Type</th>
-                   <th>Category</th>
-                   <th>Level</th>
-                   <th>Delete</th>
-               </tr></thead> 
-               <tbody>   
-                  <tr>
-                      <td>{{i+1}}</td>
-                      <td>{{poolquestion.question.content}}</td>
-                       <td>{{poolquestion.question.questionType.name}}</td>
-                       <td>{{poolquestion.question.level.levelName}}</td>
-                       <td>{{poolquestion.question.category.categoryName}}</td>
-                       <td><button><img src="assets/Images/delete.png" alt="delete"  height=30 width=30 (click)="deleteQuestion(qq.id)"></button></td>
-                   </tr> 
-               </tbody>       
-    </table>
-    </ng-container>
-    </ng-container>
-           </div>     
+        </div>
+        <ng-container *ngFor = "let poolquestion of poolquestionobj; index as i">
+            <table border=5 class="table table-bordered">
+            <thead> <tr>
+             <th>S.No</th>
+             <th>Question Text</th>
+             <th>Question Type</th>
+             <th>Category</th>
+             <th>Level</th>
+             <th>Delete</th>
+         </tr></thead> 
+         <tbody>   
+            <tr>
+                <td>{{i+1}}</td>
+                <td>{{poolquestion.content}}</td>
+                <td>{{poolquestion.type_Id.name}}</td>
+                <td>{{poolquestion.level.levelName}}</td>
+                <td>{{poolquestion.category.categoryName}}</td>
+                 <td><button><img src="assets/Images/delete.png" alt="delete"  height=30 width=30 (click)="deleteQuestion(poolquestion.id)"></button></td>
+             </tr> 
+         </tbody>       
+</table>
+</ng-container>
 
         <button type="submit" class="btn btn-primary" (click) = "getQuestions()">Add Question</button>
         <div>

@@ -76,19 +76,19 @@ export class CreateQuizComponent implements OnInit {
       }
   getCategoryList(){
     this.serviceClass.getCategories().subscribe((response : any)=>{
-      this.categories = response;
+      this.categories = response.data;
     });
   }
 
   getLevelList(){
     this.serviceClass.getLevels().subscribe((response : any)=>{
-      this.levels = response;
+      this.levels = response.data;
     });
   }
 
   getPoolList(){
     this.serviceClass.getPools().subscribe((response: any)=>{
-      this.pools = response;
+      this.pools = response.data;
     })
   }
 
@@ -103,10 +103,11 @@ export class CreateQuizComponent implements OnInit {
   setPoolId(id: number){
     this.quizForm.patchValue({pool:{id: id}})
   }
+
   getCheckBoxValue(event){
     this.quizQuestionObj1 = this.quizForm.get('quizQuestionObj') as FormArray;
     if(event.target.checked){
-      this.quizQuestionObj1 .push(new FormControl(event.target.value));
+      this.quizQuestionObj1.push(new FormControl(event.target.value));
     }
     else{
       let i:number =0;
@@ -123,73 +124,76 @@ export class CreateQuizComponent implements OnInit {
  
       getQuestions(){
         this.serviceClass.getAllQuestions().subscribe((response : any)=>{  
-          this.questions = response;
-          console.log("Questions: "+this.questions)
+          this.questions = response.data;
+         // console.log("Questions: "+this.questions)
           if(this.count === 0){
           for(let i=0;i<this.questions.length;i++){
             this.questionIds.push(this.questions[i].id)
             this.count = this.count +1;
           }
         }
-      }
-        );
-      }
+      });
+    }
 
       addQuestions(){
         for(let i=0;i<this.quizQuestionObj1.length;i++)
         {
-              this.questionIds.forEach((element,index) => {
-              if(element==this.quizQuestionObj1.value[i]){
-              this.questionIds.splice(index,1)
-              }});
-              let obj2 = {question_id:  Number(this.quizQuestionObj1.value[i]), pool: this.quizForm.get("pool").value}
-              console.log("obj2: "+JSON.stringify(obj2))
-              this.q.push(obj2);
-              
-            }
-            console.log("Q value: "+JSON.stringify(this.q))
-           
-              this.quizquestion = this.q;
-              console.log("Quiz value value: "+ JSON.stringify(this.quizquestion))
-              this.getQuestions();                                      
-              }
+          let obj2 = {question_id:  Number(this.quizQuestionObj1.value[i]), pool: this.quizForm.get("pool").value}
+          console.log("obj2: "+JSON.stringify(obj2))
+          this.q.push(obj2);              
+        }
+        for(let i = 0; i<this.quizQuestionObj1.length;i++){
+          console.log("Ids: ", this.quizQuestionObj1.value)
+          this.questionIds.forEach((element,index) => {
+            if(element==this.quizQuestionObj1.value[i]){
+            this.questionIds.splice(index,1);
+            }});
+        }
+        for(let i = 0; i<=this.quizQuestionObj1.length;i++){
+          console.log("Length: "+ this.quizQuestionObj1.length)
+          this.quizQuestionObj1.removeAt(0);
+        }
+        console.log("Q value: "+JSON.stringify(this.q))
+        this.quizquestion = this.q;
+        console.log("Quiz value value: "+ JSON.stringify(this.quizquestion))
+        this.getQuestions();                      
+      }
       save(){
         this.requestBody = {
-          quiz_name: this.quizForm.get("quiz_name").value,
-          tags: this.quizForm.get("tags").value,
-          activity_points: Number(this.quizForm.get("activity_points").value),
-          duration: this.quizForm.get("duration").value,
-          max_no_of_Attempts: Number(this.quizForm.get("max_no_of_Attempts").value),
-          level_override: Number(this.quizForm.get("level_override").value),
-          slug: this.quizForm.get("slug").value,
-          description: this.quizForm.get("description").value,
-          meta_keywords:this.quizForm.get("meta_keywords").value,
-          meta_description: this.quizForm.get("meta_description").value,
-          icon: this.quizForm.get("icon").value,
-          instructions:this.quizForm.get("instructions").value,
-          category: this.quizForm.get("category").value,
-          level: this.quizForm.get("level").value,
-          pass_percentage:Number(this.quizForm.get("pass_percentage").value),
-          is_available_pre_signup: Number(this.quizForm.get("is_available_pre_signup").value),
-          is_available_via_slug: Number(this.quizForm.get("is_available_via_slug").value),
-          is_available_dashboard: Number(this.quizForm.get("is_available_dashboard").value),
-          is_timer_enabled: Number(this.quizForm.get("is_timer_enabled").value),
-          is_shuffle_questions: Number(this.quizForm.get("is_shuffle_questions").value),
-          is_shuffle_answers: Number(this.quizForm.get("is_shuffle_answers").value),
-          is_display_score: Number(this.quizForm.get("is_display_score").value),
-          is_allow_attempt_review: Number(this.quizForm.get("is_allow_attempt_review").value),
-          is_show_whether_correct: Number(this.quizForm.get("is_show_whether_correct").value),
-          is_show_correct_answers_passed: Number(this.quizForm.get("is_show_correct_answers_passed").value),
-          is_show_correct_answers_failed: Number(this.quizForm.get("is_show_correct_answers_failed").value),
-          is_show_answer_explanations: Number(this.quizForm.get("is_show_answer_explanations").value),
-          is_enable_save_resume: Number(this.quizForm.get("is_enable_save_resume").value),
-          quizQuestionObj: this.quizquestion
+        quiz_name: this.quizForm.get("quiz_name").value,
+        tags: this.quizForm.get("tags").value,
+        activity_points: Number(this.quizForm.get("activity_points").value),
+        duration: this.quizForm.get("duration").value,
+        max_no_of_Attempts: Number(this.quizForm.get("max_no_of_Attempts").value),
+        level_override: Number(this.quizForm.get("level_override").value),
+        slug: this.quizForm.get("slug").value,
+        description: this.quizForm.get("description").value,
+        meta_keywords:this.quizForm.get("meta_keywords").value,
+        meta_description: this.quizForm.get("meta_description").value,
+        icon: this.quizForm.get("icon").value,
+        instructions:this.quizForm.get("instructions").value,
+        category: this.quizForm.get("category").value,
+        level: this.quizForm.get("level").value,
+        pass_percentage:Number(this.quizForm.get("pass_percentage").value),
+        is_available_pre_signup: Number(this.quizForm.get("is_available_pre_signup").value),
+        is_available_via_slug: Number(this.quizForm.get("is_available_via_slug").value),
+        is_available_dashboard: Number(this.quizForm.get("is_available_dashboard").value),
+        is_timer_enabled: Number(this.quizForm.get("is_timer_enabled").value),
+        is_shuffle_questions: Number(this.quizForm.get("is_shuffle_questions").value),
+        is_shuffle_answers: Number(this.quizForm.get("is_shuffle_answers").value),
+        is_display_score: Number(this.quizForm.get("is_display_score").value),
+        is_allow_attempt_review: Number(this.quizForm.get("is_allow_attempt_review").value),
+        is_show_whether_correct: Number(this.quizForm.get("is_show_whether_correct").value),
+        is_show_correct_answers_passed: Number(this.quizForm.get("is_show_correct_answers_passed").value),
+        is_show_correct_answers_failed: Number(this.quizForm.get("is_show_correct_answers_failed").value),
+        is_show_answer_explanations: Number(this.quizForm.get("is_show_answer_explanations").value),
+        is_enable_save_resume: Number(this.quizForm.get("is_enable_save_resume").value),
+        quizQuestionObj: this.quizquestion
      } 
      console.log("Request Body: "+ JSON.stringify(this.requestBody))
      this.serviceClass.createQuiz(this.requestBody).subscribe(response => {
       alert("Inserted Successfully")
     })
   }
-
   get f() { return this.quizForm.controls; }
 }

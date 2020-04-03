@@ -23,23 +23,20 @@ export class QuizInfoComponent implements OnInit{
   }
   SingleQuizInfo(id:number){
     this.serviceClass.SingleQuizInfo(this.id).subscribe((res :any)=>{
-      this.object=res;
-      console.log(this.object)
-      console.log(this.object[0].quiz_name)
+      this.object=res.data;
     },
     error => {
       return console.log(error);
     });
   }
 
-  viewPoolLQuestions(quiz_id:number, poolName:string){
+  viewPoolQuestions(quiz_id:number, poolName:string){
     this.serviceClass.poolQuestions(quiz_id, poolName).subscribe((response:any)=>{
-      this.poolquestionobj = response;
-      console.log("Pool Questions",this.poolquestionobj)
+      //this.poolquestionobj = [];
+      this.poolquestionobj = response.data;
     },
     error=>{
       return console.log(error)
     });
   }
 }
-

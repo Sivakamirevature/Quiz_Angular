@@ -4,7 +4,6 @@ import { Level, Category } from '../quiz';
 import { Pool } from '../create-quiz/quiz';
 import { QuizServiceService } from '../quiz-service.service';
 import { ActivatedRoute } from '@angular/router';
-import { element } from 'protractor';
 
 @Component({
   selector: 'app-updated-quiz',
@@ -42,7 +41,8 @@ export class UpdatedQuizComponent implements OnInit {
   }
   SingleQuizInfo(id:number){
     this.serviceClass.SingleQuizInfo(this.id).subscribe((res :any)=>{
-      this.object=res;
+      this.object=res.data;
+      console.log("Object Value is : "+ JSON.stringify(this.object[0]));
     
     this.quizForm.patchValue({
     quiz_name: this.object[0].quiz_id,
@@ -55,7 +55,6 @@ export class UpdatedQuizComponent implements OnInit {
     description: this.object[0].description,
     meta_keywords: this.object[0].meta_keywords,
     meta_description: this.object[0].meta_description,
-  //  icon: this.object[0].icon,
     instructions: this.object[0].instructions,
      category: { categoryId: this.object[0].category.categoryId},
      level: { levelId: this.object[0].level.levelId},
@@ -75,13 +74,12 @@ export class UpdatedQuizComponent implements OnInit {
     is_enable_save_resume: this.object[0].is_enable_save_resume   
     });
     this.object[0].quizQuestionObj.forEach(element => {
-      this.selectedQuiestionIds.push(element.question.id);
-      console.log("selected Question Ids: "+this.selectedQuiestionIds)
+      this.selectedQuiestionIds.push(element.question_id);
     });
   },
     error => {
       return console.log(error);
-    });
+  });
   
   this.quizForm = this.formbuilder.group({
     quiz_name: ['',[Validators.required]],
@@ -125,18 +123,18 @@ export class UpdatedQuizComponent implements OnInit {
      
 getCategoryList(){
   this.serviceClass.getCategories().subscribe((response : any)=>{
-    this.categories = response;
+    this.categories = response.data;
   });
 }
 
 getLevelList(){
   this.serviceClass.getLevels().subscribe((response : any)=>{
-    this.levels = response;
+    this.levels = response.data;
   });
 }
 getPoolList(){
   this.serviceClass.getPools().subscribe((response: any)=>{
-    this.pools = response;
+    this.pools = response.data;
   })
 }
 
@@ -153,23 +151,43 @@ setPoolId(id: number){
 }
 
 addQuestions(){
+  // for(let i=0;i<this.quizQuestionObj1.length;i++){
+  //   this.obj1 = {
+  //   id: Number(this.quizQuestionObj1.value[i]),
+  //   }
+  //  //console.log(this.obj1,"odfjdsfjsdljf")
+  //   this.questionIds.forEach((element,index) => {
+  //   if(element==this.quizQuestionObj1.value[i]){
+  //     this.questionIds.splice(index,1)
+  //   }});
+  // }
+  // let poolId = (this.quizForm.get("pool").value);
+  // let obj2 = {question: this.obj1, pool: poolId}
+  // this.q.push(obj2);
+  // this.quizquestion = this.q;
+  // this.getQuestions();     
   for(let i=0;i<this.quizQuestionObj1.length;i++)
-        {
-              this.obj1 = {
-                id: Number(this.quizQuestionObj1.value[i]),
-              }
-              this.questionIds.forEach((element,index) => {
-              if(element==this.quizQuestionObj1.value[i]){
-              this.questionIds.splice(index,1)
-              }});
-            }
-            let poolId = (this.quizForm.get("pool").value);
-              let obj2 = {question: this.obj1, pool: poolId}
-              console.log("obj2: "+JSON.stringify(obj2))
-              this.q.push(obj2);
-              this.quizquestion = this.q;
-              this.getQuestions();     
-            }
+  {
+    let obj2 = {question_id:  Number(this.quizQuestionObj1.value[i]), pool: this.quizForm.get("pool").value}
+    console.log("obj2: "+JSON.stringify(obj2))
+    this.q.push(obj2);              
+  }
+  for(let i = 0; i<this.quizQuestionObj1.length;i++){
+    console.log("Ids: ", this.quizQuestionObj1.value)
+    this.questionIds.forEach((element,index) => {
+      if(element==this.quizQuestionObj1.value[i]){
+      this.questionIds.splice(index,1);
+      }});
+  }
+  for(let i = 0; i<=this.quizQuestionObj1.length;i++){
+    console.log("Length: "+ this.quizQuestionObj1.length)
+    this.quizQuestionObj1.removeAt(0);
+  }
+  console.log("Q value: "+JSON.stringify(this.q))
+  this.quizquestion = this.q;
+  console.log("Quiz value value: "+ JSON.stringify(this.quizquestion))
+  this.getQuestions();    
+  }
 
 getCheckBoxValue(event){
   this.quizQuestionObj1 = this.quizForm.get('quizQuestionObj') as FormArray;
@@ -190,7 +208,7 @@ getCheckBoxValue(event){
 
 getQuestions(){
   this.serviceClass.getAllQuestions().subscribe((response : any)=>{  
-    this.questions = response; 
+    this.questions = response.data; 
     if(this.count === 0){
     for(let i=0;i<this.questions.length;i++){
       this.questionIds.push(this.questions[i].id)
@@ -198,13 +216,11 @@ getQuestions(){
     }
   }
   console.log("Question IDs: "+this.questionIds)
+});
 }
-  );
-
-}
-viewPoolLQuestions(quiz_id:number, poolName:string){
+viewPoolQuestions(quiz_id:number, poolName:string){
   this.serviceClass.poolQuestions(quiz_id, poolName).subscribe((response:any)=>{
-    this.poolquestionobj = response;
+    this.poolquestionobj = response.data;
     console.log("Pool Questions",this.poolquestionobj)
   },
   error=>{
@@ -212,7 +228,7 @@ viewPoolLQuestions(quiz_id:number, poolName:string){
   });
 }
 deleteQuestion(id){
-  if(confirm("Are sure, Do you delete Question?")){
+  if(confirm("Are you sure, Do you delete Question?")){
   this.serviceClass.deleteQuestion(id).subscribe(response =>{
   });
   this.object.forEach(element=>{
@@ -227,10 +243,10 @@ deleteQuestion(id){
  }
 }
  save(){
-   console.log("Quiz id: "+ this.object)
+  console.log("Quiz id: "+ this.object)
   this.requestBody = {
-    quiz_id :this.object[0].quiz_id,
-    quiz_name: this.quizForm.get("quiz_name").value,
+  quiz_id :this.object[0].quiz_id,
+  quiz_name: this.quizForm.get("quiz_name").value,
     tags: this.quizForm.get("tags").value,
     activity_points: Number(this.quizForm.get("activity_points").value),
     duration: this.quizForm.get("duration").value,
@@ -260,9 +276,9 @@ deleteQuestion(id){
     is_enable_save_resume: Number(this.quizForm.get("is_enable_save_resume").value),
     quizQuestionObj: this.quizquestion   
 } 
-console.log("Request Body: "+ this.requestBody.value)
+console.log("Request Body: "+ JSON.stringify(this.requestBody))
 this.serviceClass.updateQuiz(this.requestBody).subscribe(response => {
 alert("Inserted Successfully")
 })
 }
-}  
+}

@@ -16,8 +16,7 @@ export class ViewComponent implements OnInit {
 
   view() {
     this.serviceClass.view().subscribe((response :any)=>{
-      this.object=response;
-      console.log(this.object)
+      this.object=response.data;
     },
     error => {
       return console.log(error);
