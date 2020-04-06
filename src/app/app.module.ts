@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { RouterModule, Routes } from '@angular/router';
+import { TagInputModule } from 'ngx-chips';
 
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 
@@ -30,6 +30,7 @@ import { CloneQuizComponent } from './clone-quiz/clone-quiz.component';
     CloneQuizComponent
   ],
   imports: [
+    TagInputModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,

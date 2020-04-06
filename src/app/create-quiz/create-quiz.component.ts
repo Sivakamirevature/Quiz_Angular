@@ -23,8 +23,11 @@ export class CreateQuizComponent implements OnInit {
   count = 0;
   count1 = 0;
   obj1: any;
-  isDisabled = false;
-  description;
+  isDisabled = false
+  isChecked = true;
+  disabled3: boolean;
+  disabled1: boolean;
+  tagValue:String;
   constructor(private serviceClass:QuizServiceService, private formbuilder: FormBuilder) { }
 
   ngOnInit(): void {
@@ -160,7 +163,7 @@ export class CreateQuizComponent implements OnInit {
       save(){
         this.requestBody = {
         quiz_name: this.quizForm.get("quiz_name").value,
-        tags: (this.quizForm.get("tags").value),
+        tags: (this.quizForm.get("tags").value).toString(),
         activity_points: Number(this.quizForm.get("activity_points").value),
         duration: this.quizForm.get("duration").value,
         max_no_of_Attempts: Number(this.quizForm.get("max_no_of_Attempts").value),
@@ -194,7 +197,18 @@ export class CreateQuizComponent implements OnInit {
       alert("Inserted Successfully")
     })
   }
-  signup(){
-
+  signup(event){
+    this.isDisabled = true
+    this.isChecked = true
+    if(event.target.checked){
+        this.disabled1 = false;
+    }
+  }
+  signup1(event){
+    this.isDisabled = true
+    this.isChecked = true
+    if(event.target.checked){
+        this.disabled1 = false;
+    }  
   }
 }

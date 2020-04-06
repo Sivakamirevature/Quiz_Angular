@@ -28,6 +28,9 @@ export class UpdatedQuizComponent implements OnInit {
   poolquestionobj: any;
   requestBody: any;
   selectedQuiestionIds: any = [];
+  isDisabled: boolean = false;
+  isChecked: boolean = false;
+  tagValue:string;
   
   constructor(private serviceClass:QuizServiceService, private formbuilder: FormBuilder,  private route: ActivatedRoute) { }
 
@@ -45,8 +48,8 @@ export class UpdatedQuizComponent implements OnInit {
       console.log("Object Value is : "+ JSON.stringify(this.object[0]));
     
     this.quizForm.patchValue({
-    quiz_name: this.object[0].quiz_id,
-    tags: this.object[0].tags,
+    quiz_name: this.object[0].quiz_name,
+    tags: this.object[0].tags.split(','),
     activity_points: this.object[0].activity_points,
     duration: this.object[0].duration,
     max_no_of_Attempts: this.object[0].max_no_of_attempts,
@@ -150,22 +153,7 @@ setPoolId(id: number){
   this.quizForm.patchValue({pool:{id: id}})
 }
 
-addQuestions(){
-  // for(let i=0;i<this.quizQuestionObj1.length;i++){
-  //   this.obj1 = {
-  //   id: Number(this.quizQuestionObj1.value[i]),
-  //   }
-  //  //console.log(this.obj1,"odfjdsfjsdljf")
-  //   this.questionIds.forEach((element,index) => {
-  //   if(element==this.quizQuestionObj1.value[i]){
-  //     this.questionIds.splice(index,1)
-  //   }});
-  // }
-  // let poolId = (this.quizForm.get("pool").value);
-  // let obj2 = {question: this.obj1, pool: poolId}
-  // this.q.push(obj2);
-  // this.quizquestion = this.q;
-  // this.getQuestions();     
+addQuestions(){ 
   for(let i=0;i<this.quizQuestionObj1.length;i++)
   {
     let obj2 = {question_id:  Number(this.quizQuestionObj1.value[i]), pool: this.quizForm.get("pool").value}
@@ -247,7 +235,7 @@ deleteQuestion(id){
   this.requestBody = {
   quiz_id :this.object[0].quiz_id,
   quiz_name: this.quizForm.get("quiz_name").value,
-    tags: this.quizForm.get("tags").value,
+    tags: this.quizForm.get("tags").value.toString(),
     activity_points: Number(this.quizForm.get("activity_points").value),
     duration: this.quizForm.get("duration").value,
     max_no_of_Attempts: Number(this.quizForm.get("max_no_of_Attempts").value),
@@ -280,5 +268,9 @@ console.log("Request Body: "+ JSON.stringify(this.requestBody))
 this.serviceClass.updateQuiz(this.requestBody).subscribe(response => {
 alert("Inserted Successfully")
 })
+}
+signup(){
+  this.isDisabled = true
+  this.isChecked = true
 }
 }

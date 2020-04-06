@@ -28,6 +28,11 @@ export class CloneQuizComponent implements OnInit {
   poolquestionobj: any;
   requestBody: any;
   selectedQuiestionIds: any = [];
+  isDisabled = false
+  isChecked = true;
+  disabled3: boolean;
+  disabled1: boolean;
+  tagValue:String;
   
   constructor(private serviceClass:QuizServiceService, private formbuilder: FormBuilder,  private route: ActivatedRoute) { }
 
@@ -46,7 +51,7 @@ export class CloneQuizComponent implements OnInit {
     
     this.quizForm.patchValue({
     quiz_name: this.object[0].quiz_id,
-    tags: this.object[0].tags,
+    tags: this.object[0].tags.split(','),
     activity_points: this.object[0].activity_points,
     duration: this.object[0].duration,
     max_no_of_Attempts: this.object[0].max_no_of_attempts,
@@ -151,21 +156,6 @@ setPoolId(id: number){
 }
 
 addQuestions(){
-  // for(let i=0;i<this.quizQuestionObj1.length;i++){
-  //   this.obj1 = {
-  //   id: Number(this.quizQuestionObj1.value[i]),
-  //   }
-  //  //console.log(this.obj1,"odfjdsfjsdljf")
-  //   this.questionIds.forEach((element,index) => {
-  //   if(element==this.quizQuestionObj1.value[i]){
-  //     this.questionIds.splice(index,1)
-  //   }});
-  // }
-  // let poolId = (this.quizForm.get("pool").value);
-  // let obj2 = {question: this.obj1, pool: poolId}
-  // this.q.push(obj2);
-  // this.quizquestion = this.q;
-  // this.getQuestions();     
   for(let i=0;i<this.quizQuestionObj1.length;i++)
   {
     let obj2 = {question_id:  Number(this.quizQuestionObj1.value[i]), pool: this.quizForm.get("pool").value}
@@ -236,7 +226,6 @@ deleteQuestion(id){
       if(ele.id===id){
         this.selectedQuiestionIds.splice(index,1)
         this.object[0].quizQuestionObj=this.object[0].quizQuestionObj.filter(ele => ele.id !== id)
-        console.log(this.object,"object")
       }
     });
   })
@@ -247,7 +236,7 @@ deleteQuestion(id){
   this.requestBody = {
   quiz_id :this.object[0].quiz_id,
   quiz_name: this.quizForm.get("quiz_name").value,
-    tags: this.quizForm.get("tags").value,
+    tags: this.quizForm.get("tags").value.toString(),
     activity_points: Number(this.quizForm.get("activity_points").value),
     duration: this.quizForm.get("duration").value,
     max_no_of_Attempts: Number(this.quizForm.get("max_no_of_Attempts").value),
@@ -277,8 +266,22 @@ deleteQuestion(id){
     quizQuestionObj: this.quizquestion   
 } 
 console.log("Request Body: "+ JSON.stringify(this.requestBody))
-this.serviceClass.updateQuiz(this.requestBody).subscribe(response => {
+this.serviceClass.createQuiz(this.requestBody).subscribe(response => {
 alert("Inserted Successfully")
 })
+}
+signup(event){
+  this.isDisabled = true
+  this.isChecked = true
+  if(event.target.checked){
+      this.disabled1 = false;
+  }
+}
+signup1(event){
+  this.isDisabled = true
+  this.isChecked = true
+  if(event.target.checked){
+      this.disabled1 = false;
+  }  
 }
 }
