@@ -23,8 +23,8 @@ export class CreateQuizComponent implements OnInit {
   count = 0;
   count1 = 0;
   obj1: any;
-  submitted = false;
-
+  isDisabled = false;
+  description;
   constructor(private serviceClass:QuizServiceService, private formbuilder: FormBuilder) { }
 
   ngOnInit(): void {
@@ -125,7 +125,6 @@ export class CreateQuizComponent implements OnInit {
       getQuestions(){
         this.serviceClass.getAllQuestions().subscribe((response : any)=>{  
           this.questions = response.data;
-         // console.log("Questions: "+this.questions)
           if(this.count === 0){
           for(let i=0;i<this.questions.length;i++){
             this.questionIds.push(this.questions[i].id)
@@ -161,7 +160,7 @@ export class CreateQuizComponent implements OnInit {
       save(){
         this.requestBody = {
         quiz_name: this.quizForm.get("quiz_name").value,
-        tags: this.quizForm.get("tags").value,
+        tags: (this.quizForm.get("tags").value),
         activity_points: Number(this.quizForm.get("activity_points").value),
         duration: this.quizForm.get("duration").value,
         max_no_of_Attempts: Number(this.quizForm.get("max_no_of_Attempts").value),
@@ -195,5 +194,7 @@ export class CreateQuizComponent implements OnInit {
       alert("Inserted Successfully")
     })
   }
-  get f() { return this.quizForm.controls; }
+  signup(){
+
+  }
 }
