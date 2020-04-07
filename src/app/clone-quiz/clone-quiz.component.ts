@@ -44,13 +44,22 @@ export class CloneQuizComponent implements OnInit {
     this.getPoolList();  
     this.check = 1;
   }
+
+  view() {
+    this.serviceClass.view().subscribe((response :any)=>{
+      this.object=response.data;
+    },
+    error => {
+      return console.log(error);
+    });
+  }
   SingleQuizInfo(id:number){
     this.serviceClass.SingleQuizInfo(this.id).subscribe((res :any)=>{
       this.object=res.data;
       console.log("Object Value is : "+ JSON.stringify(this.object[0]));
     
     this.quizForm.patchValue({
-    quiz_name: this.object[0].quiz_id,
+    quiz_name: this.object[0].quiz_name,
     tags: this.object[0].tags.split(','),
     activity_points: this.object[0].activity_points,
     duration: this.object[0].duration,
@@ -267,21 +276,26 @@ deleteQuestion(id){
 } 
 console.log("Request Body: "+ JSON.stringify(this.requestBody))
 this.serviceClass.createQuiz(this.requestBody).subscribe(response => {
-alert("Inserted Successfully")
-})
+alert("Inserted Successfully");
+this.view();
+},
+  error => {
+    alert(error.message)
+  });
 }
+
 signup(event){
   this.isDisabled = true
   this.isChecked = true
   if(event.target.checked){
-      this.disabled1 = false;
+      this.disabled1 = true;
   }
 }
 signup1(event){
   this.isDisabled = true
   this.isChecked = true
   if(event.target.checked){
-      this.disabled1 = false;
+      this.disabled1 = true;
   }  
 }
 }

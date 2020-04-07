@@ -267,10 +267,20 @@ deleteQuestion(id){
 console.log("Request Body: "+ JSON.stringify(this.requestBody))
 this.serviceClass.updateQuiz(this.requestBody).subscribe(response => {
 alert("Inserted Successfully")
+this.view();
 })
 }
 signup(){
   this.isDisabled = true
   this.isChecked = true
+}
+
+view() {
+  this.serviceClass.view().subscribe((response :any)=>{
+    this.object=response.data;
+  },
+  error => {
+    return console.log(error);
+  });
 }
 }

@@ -28,6 +28,7 @@ export class CreateQuizComponent implements OnInit {
   disabled3: boolean;
   disabled1: boolean;
   tagValue:String;
+  object: any;
   constructor(private serviceClass:QuizServiceService, private formbuilder: FormBuilder) { }
 
   ngOnInit(): void {
@@ -195,6 +196,7 @@ export class CreateQuizComponent implements OnInit {
      console.log("Request Body: "+ JSON.stringify(this.requestBody))
      this.serviceClass.createQuiz(this.requestBody).subscribe(response => {
       alert("Inserted Successfully")
+      this.view();
     })
   }
   signup(event){
@@ -210,5 +212,14 @@ export class CreateQuizComponent implements OnInit {
     if(event.target.checked){
         this.disabled1 = false;
     }  
+  }
+
+  view() {
+    this.serviceClass.view().subscribe((response :any)=>{
+      this.object=response.data;
+    },
+    error => {
+      return console.log(error);
+    });
   }
 }

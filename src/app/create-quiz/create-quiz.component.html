@@ -272,12 +272,12 @@
         <button type="submit" class="btn btn-primary" (click) = "getQuestions()">Show Question</button>
 
         <div >
-            <div formGroupName="pool">
-                Level: <select (change)=setPoolId($event.target.value) id="poolId" formControlName="id">
+            <div formGroupName="pool" align="center">
+                Pool: <select (change)=setPoolId($event.target.value) id="poolId" formControlName="id">
                     <option value="" disabled selected>select</option>
                     <option *ngFor="let pool of pools" [value]="pool.id" >{{pool.poolName}}</option>
                   </select>
-            </div>
+            </div><br>
             <table class="table table-bordered">
                 <thead> <tr>
                     <th><input type = "checkbox" value = "question.id" ></th>   

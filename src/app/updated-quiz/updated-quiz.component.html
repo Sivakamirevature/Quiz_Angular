@@ -8,8 +8,7 @@
                     <label class="required">Quiz Name: </label> 
             </div>
             <div class="col-md-3">
-                <input type="text"  formControlName="quiz_name" class= "form-control" placeholder="Quiz1"/>         
-                <!-- <tag-input formControlName="tags" [(ngModel)]="tagValue" [modelAsStrings]="true"> </tag-input> -->
+                <input type="text"  formControlName="quiz_name" class= "form-control" readonly/>
             </div>
             <div class="col-md-1">
                 <label>Level: </label> <br>
@@ -91,9 +90,9 @@
             </div>
             <div class = "col-md-3">
                 <label for="one">
-                    <input type="radio" name="level_override" formControlName="level_override" value=1 />
+                    <input type="radio" name="level_override" formControlName="level_override" value=1 [checked]  = "quizForm.value.level_override===true"/>
                     On
-                    <input type="radio"  name="level_override" formControlName="level_override" value=0 />
+                    <input type="radio"  name="level_override" formControlName="level_override" value=0  [checked]  = "quizForm.value.level_override===false"/>
                     Off
                     </label> 
             </div>
@@ -104,7 +103,7 @@
                 https://qa.revature/com/quizzes/
             </div>
                 <div class = "col-md-3">
-                <input type="text" formControlName="slug" class="form-control"/>
+                <input type="text" formControlName="slug" class="form-control" readonly/>
             </div>   
         </div><br>
 
@@ -160,9 +159,9 @@
                 </div>
                 <div class = "col-md-6">
                     <label for="one">
-                        <input type="radio" name="is_timer_enabled" formControlName="is_timer_enabled" value=1 />
+                        <input type="radio" name="is_timer_enabled" formControlName="is_timer_enabled" value=1 [checked]  = "quizForm.value.is_timer_enabled===true"/>
                         Yes
-                        <input type="radio"  name="is_timer_enabled" formControlName="is_timer_enabled" value=0 />
+                        <input type="radio"  name="is_timer_enabled" formControlName="is_timer_enabled" value=0 [checked]  = "quizForm.value.is_timer_enabled===false" />
                         No
                         </label> 
                 </div>
@@ -174,9 +173,9 @@
                 </div>
                 <div class = "col-md-6">
                     <label for="one">
-                        <input type="radio" name="is_shuffle_questions" formControlName="is_shuffle_questions" value=1 />
+                        <input type="radio" name="is_shuffle_questions" formControlName="is_shuffle_questions" value=1 [checked]  = "quizForm.value.is_shuffle_questions===true"/>
                         Yes
-                        <input type="radio"  name="is_shuffle_questions" formControlName="is_shuffle_questions" value=0 />
+                        <input type="radio"  name="is_shuffle_questions" formControlName="is_shuffle_questions" value=0 [checked]  = "quizForm.value.is_shuffle_questions===false"/>
                         No
                         </label> 
                 </div>
@@ -188,9 +187,9 @@
                 </div>
                 <div class = "col-md-6">
                     <label for="one">
-                        <input type="radio" name="is_shuffle_answers" formControlName="is_shuffle_answers" value=1 />
+                        <input type="radio" name="is_shuffle_answers" formControlName="is_shuffle_answers" value=1 [checked]  = "quizForm.value.is_shuffle_answers===true"/>
                         Yes
-                        <input type="radio"  name="is_shuffle_answers" formControlName="is_shuffle_answers" value=0 />
+                        <input type="radio"  name="is_shuffle_answers" formControlName="is_shuffle_answers" value=0 [checked]  = "quizForm.value.is_shuffle_answers===false"/>
                         No
                         </label> 
                 </div>
@@ -202,9 +201,9 @@
                 </div>
                 <div class = "col-md-6">
                     <label for="one">
-                        <input type="radio" name="is_display_score" formControlName="is_display_score" value=1 />
+                        <input type="radio" name="is_display_score" formControlName="is_display_score" value=1 [checked]  = "quizForm.value.is_display_score===true"/>
                         Yes
-                        <input type="radio"  name="is_display_score" formControlName="is_display_score" value=0 />
+                        <input type="radio"  name="is_display_score" formControlName="is_display_score" value=0 [checked]  = "quizForm.value.is_display_score===false"/>
                         No
                         </label> 
                 </div>
@@ -252,9 +251,9 @@
                 </div>
                 <div class = "col-md-6">
                     <label for="one">
-                        <input type="radio" name="is_show_answer_explanations" formControlName="is_show_answer_explanations" value=1 />
+                        <input type="radio" name="is_show_answer_explanations" formControlName="is_show_answer_explanations" value=1 [checked]  = "quizForm.value.is_show_answer_explanations===true"/>
                         Yes
-                        <input type="radio"  name="is_show_answer_explanations" formControlName="is_show_answer_explanations" value=0 />
+                        <input type="radio"  name="is_show_answer_explanations" formControlName="is_show_answer_explanations" value=0 [checked]  = "quizForm.value.is_show_answer_explanations===false"/>
                         No
                         </label> 
                 </div>
@@ -300,12 +299,12 @@
 
         <button type="submit" class="btn btn-primary" (click) = "getQuestions()">Show Question</button>
         <div>
-            <div formGroupName="pool">
+            <div formGroupName="pool" align="center">
                 Pool: <select (change)=setPoolId($event.target.value) id="poolId" formControlName="id">
                     <option value="" disabled selected>select</option>
                     <option *ngFor="let pool of pools" [value]="pool.id" id = "poolId">{{pool.poolName}}</option>
                   </select>
-            </div>
+            </div><br>
             <table class="table table-bordered">
                 <thead> <tr>
                     <th><input type = "checkbox" value = "question.id" ></th>   
